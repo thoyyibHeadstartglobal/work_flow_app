@@ -41,6 +41,9 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
+
+
+
   Future<void> _getAvailableSupport() async {
     // 7. this method fetches all the available biometric supports of the device
     List<BiometricType> availableBuimetricType = [];
