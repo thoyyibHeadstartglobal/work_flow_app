@@ -16,9 +16,7 @@ class AppHome extends StatefulWidget {
 class _AppHomeState extends State<AppHome> {
 
 
-  final LocalAuthentication auth = LocalAuthentication();
 
-  String msg = "You are not authorized.";
 
   List<dynamic> statusList = [{"status":'Pending',
   'color':Colors.white54,'count':2,
@@ -311,85 +309,64 @@ actions: [IconButton(onPressed: (){
             //     )
             //   // ),
             ),
-              Expanded(
-                child: ElevatedButton(
-                    onPressed:() async {
-                      try {
-                        bool hasbiometrics = await auth.canCheckBiometrics; //check if there is authencations,
+              // Expanded(
+              //   child: ElevatedButton(
+              //       onPressed:() async {
+              //         try {
+              //           bool hasbiometrics = await auth.canCheckBiometrics; //check if there is authencations,
+              //
+              //           if(hasbiometrics){
+              //             List<BiometricType> availableBiometrics = await auth.getAvailableBiometrics();
+              //             if (Platform.isIOS) {
+              //               if (availableBiometrics.contains(BiometricType.face)) {
+              //
+              //                 bool pass = await auth.authenticate(
+              //
+              //                     localizedReason: 'Authenticate with fingerprint',
+              //                     options: AuthenticationOptions(
+              //                         biometricOnly: true
+              //                     ) );
+              //
+              //                 if(pass){
+              //                   msg = "You are Autenciated.";
+              //                   setState(() {
+              //
+              //                   });
+              //                 }
+              //
+              //               }
+              //             }else{
+              //               if (availableBiometrics.contains(BiometricType.fingerprint)) {
+              //                 bool pass = await auth.authenticate(
+              //                     localizedReason: 'Authenticate with fingerprint/face',
+              //                     options: AuthenticationOptions(
+              //                       biometricOnly: true
+              //                     ));
+              //                 if(pass){
+              //                   msg = "You are Authenicated.";
+              //                   setState(() {
+              //
+              //                   });
+              //                 }
+              //               }
+              //             }
+              //           }else{
+              //             msg = "You are not alowed to access biometrics.";
+              //           }
+              //
+              //
+              //         } on PlatformException catch (e) {
+              //           msg = "Error while opening fingerprint/face scanner";
+              //         }
+              //
+              //       },
+              //       child: Text("Authenticate with Fingerprint/Face Scan")
+              //   ),
+              // ),
 
-                        if(hasbiometrics){
-                          List<BiometricType> availableBiometrics = await auth.getAvailableBiometrics();
-                          if (Platform.isIOS) {
-                            if (availableBiometrics.contains(BiometricType.face)) {
-
-                              bool pass = await auth.authenticate(
-                                  localizedReason: 'Authenticate with fingerprint',
-                                  options: AuthenticationOptions(
-                                      biometricOnly: true
-                                  ) );
-
-                              if(pass){
-                                msg = "You are Autenciated.";
-                                setState(() {
-
-                                });
-                              }
-
-                            }
-                          }else{
-                            if (availableBiometrics.contains(BiometricType.fingerprint)) {
-                              bool pass = await auth.authenticate(
-                                  localizedReason: 'Authenticate with fingerprint/face',
-                                  options: AuthenticationOptions(
-                                    biometricOnly: true
-                                  ));
-                              if(pass){
-                                msg = "You are Authenicated.";
-                                setState(() {
-
-                                });
-                              }
-                            }
-                          }
-                        }else{
-                          msg = "You are not alowed to access biometrics.";
-                        }
 
 
-                      } on PlatformException catch (e) {
-                        msg = "Error while opening fingerprint/face scanner";
-                      }
 
-                    },
-                    child: Text("Authenticate with Fingerprint/Face Scan")
-                ),
-              ),
-
-
-              Expanded(child: ElevatedButton(
-                  onPressed:() async {
-                    try {
-
-                      bool pass = await auth.authenticate(
-                          localizedReason: 'Authenticate with pattern/pin/passcode',
-                          options: AuthenticationOptions(
-                              biometricOnly: true
-                          )
-                      );
-                      if(pass){
-                        msg = "You are Authenticated.";
-                        setState(() {
-
-                        });
-                      }
-
-                    } on PlatformException catch (e) {
-                      msg = "Error while opening fingerprint/face scanner";
-                    }
-
-                  },
-                  child: Text("Authenticate with Pin/Passcode/Pattern Scan")
-              )),
               ],
         )
           ),

@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:work_flow_app/app_home_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -10,6 +12,104 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final LocalAuthentication auth = LocalAuthentication();
+
+
+  // 2. created object of localauthentication class
+  final LocalAuthentication _localAuthentication = LocalAuthentication();
+  // 3. variable for track whether your device support local authentication means
+  //    have fingerprint or face recognization sensor or not
+  bool _hasFingerPrintSupport = false;
+  // 4. we will set state whether user authorized or not
+  String _authorizedOrNot = "Not Authorized";
+  // 5. list of avalable biometric authentication supports of your device will be saved in this array
+  List<BiometricType> _availableBuimetricType = [];
+
+  Future<void> _getBiometricsSupport() async {
+    // 6. this method checks whether your device has biometric support or not
+    bool hasFingerPrintSupport = false;
+    try {
+      hasFingerPrintSupport = await _localAuthentication.canCheckBiometrics;
+    } catch (e) {
+      print(e);
+    }
+    if (!mounted) return;
+    setState(() {
+      _hasFingerPrintSupport = hasFingerPrintSupport;
+    });
+  }
+
+  Future<void> _getAvailableSupport() async {
+    // 7. this method fetches all the available biometric supports of the device
+    List<BiometricType> availableBuimetricType = [];
+    try {
+      availableBuimetricType =
+      await _localAuthentication.getAvailableBiometrics();
+    } catch (e) {
+      print(e);
+    }
+    if (!mounted) return;
+    setState(() {
+      _availableBuimetricType = availableBuimetricType;
+    });
+  }
+
+  bool ? isAuthenticated =false;
+
+  Future<void> _authenticateMe() async {
+
+    // BiometricPrompt.PromptInfo.Builder().setDeviceCredentialAllowed(true);
+    // 8. this method opens a dialog for fingerprint authentication.
+    //    we do not need to create a dialog nut it popsup from device natively.
+    bool authenticated = false;
+    try {
+      isAuthenticated  = await _localAuthentication.authenticate(
+          localizedReason: 'Please complete the biometrics to proceed.',
+          options:
+          AuthenticationOptions(
+              biometricOnly: true
+          )
+
+      );
+
+      // _authorizedOrNot ="Authorized";
+      setState((){
+
+      });
+      // = await _localAuthentication
+      // .authenticate(
+      //
+      //     localizedReason: 'Authenticate with fingerprint',
+      //     options: AuthenticationOptions(
+      //
+      //       stickyAuth: true,
+      //         biometricOnly: true,
+      //       useErrorDialogs: true
+      //     ) )
+      //
+      // ;
+    } catch (e) {
+      print(e);
+    }
+    if (!mounted) return;
+    setState(() {
+      // isAuthenticated = true ? "Authorized" : "Not Authorized";
+    });
+  }
+
+  @override
+  void initState() {
+    _getBiometricsSupport();
+    _getAvailableSupport();
+    super.initState();
+  }
+
+  String msg = "You are not authorized.";
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -89,7 +189,59 @@ class _LoginPageState extends State<LoginPage> {
                         }, child:
                         Text("Login")),
                       ],
-                    )
+                    ),
+                    // Expanded(child: ElevatedButton(
+                    //     onPressed:() async {
+                    //       try {
+                    //
+                    //         isAuthenticated = await auth.authenticate(
+                    //             localizedReason: 'Authenticate with pattern/pin/passcode',
+                    //             options: AuthenticationOptions(
+                    //                 biometricOnly: true,
+                    //                 useErrorDialogs: true,
+                    //                 stickyAuth: true
+                    //             )
+                    //         );
+                    //         // if(pass){
+                    //         //
+                    //         //   msg = "You are Authenticated.";
+                    //         //   // _authorizedOrNot ="Authorized";
+                    //         //   setState(() {
+                    //         //
+                    //         //   });
+                    //         // }
+                    //
+                    //       } on PlatformException catch (e) {
+                    //         msg = "Error while opening fingerprint/face scanner";
+                    //       }
+                    //
+                    //     },
+                    //     child: Text("Authenticate with Pin/Passcode/Pattern Scan")
+                    // )),
+
+
+
+                    // Text("Has FingerPrint Support : $_hasFingerPrintSupport"),
+                    // Text(
+                    //     "List of Biometrics Support: ${_availableBuimetricType.toString()}"),
+                    // Text("Authorized : $_authorizedOrNot"),
+                    ConstrainedBox(
+                      constraints: BoxConstraints.loose(Size(MediaQuery.of(context).size.width * 0.8,
+                          150)),
+                      child: ElevatedButton(
+                        child: Text("Authorize Now"),
+                        // color: Colors.green,
+                        // onPressed:()=>_authenticate(),
+                        onPressed: _authenticateMe,
+                      ),
+                    ),
+                    Center(
+                      child: Text(!canAuthenticate
+                          ? "Biometrics Not available"
+                          : didAuthenticate
+                          ? "Authenticated"
+                          : "Please Unlock with biometrics"),
+                    ),
                   ],
                 ),
               ),
@@ -99,5 +251,36 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+
+  }
+  bool canAuthenticate = false;
+  bool didAuthenticate = false;
+  _authenticate() async {
+    try {
+      final LocalAuthentication auth = LocalAuthentication();
+      final bool canAuthenticateWithBiometrics = await auth.canCheckBiometrics;
+
+      canAuthenticate =
+          canAuthenticateWithBiometrics || await auth.isDeviceSupported();
+      if (!canAuthenticate) {
+        return;
+      }
+      setState(() {
+        canAuthenticate = canAuthenticate;
+      });
+      didAuthenticate = await auth.authenticate(
+          localizedReason: 'Please authenticate to Goto Next Screen',
+          options: const AuthenticationOptions(
+              biometricOnly: true));
+      setState(() {});
+      if (didAuthenticate) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) =>  AppHome()),
+                (route) => false);
+      }
+    } on PlatformException catch (e) {
+      print(e);
+    }
   }
 }
