@@ -8,6 +8,7 @@ import 'dart:io';
 
 import 'package:work_flow_app/task_management_pages/create_tasks.dart';
 import 'package:work_flow_app/task_management_pages/task_notifications.dart';
+import 'package:work_flow_app/task_management_pages/task_notifications_page.dart';
 
 class AppHome extends StatefulWidget {
   const AppHome({Key? key}) : super(key: key);
@@ -81,8 +82,9 @@ actions: [IconButton(onPressed: (){
   Navigator.push(context,
   MaterialPageRoute(builder: (context)=>
 
-      TaskNotificationsDetails()));
+      TasknotificationsPage()));
 }, icon: Icon(Icons.notifications_active_outlined))],
+
 
 
           ),

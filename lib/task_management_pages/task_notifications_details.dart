@@ -15,9 +15,10 @@ class _TaskNotificationsDetailsState extends State<TaskNotificationsDetails> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          elevation: 0.0,
 
           centerTitle: true,
-          title: Text("Notifications"),
+          title: Text("Notification Details"),
         backgroundColor: AppConstants().appTheme,),
 
         body: Column(
