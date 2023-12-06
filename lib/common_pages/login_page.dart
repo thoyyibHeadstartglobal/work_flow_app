@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:work_flow_app/app_home_page.dart';
+import 'package:work_flow_app/common_pages/app_constants.dart';
+import 'package:work_flow_app/common_pages/app_home_page.dart';
 
 import 'biometric_api.dart';
 
@@ -269,7 +270,7 @@ class _LoginPageState extends State<LoginPage> {
                           // onHover: false,
                           style: ElevatedButton.styleFrom(
                             elevation: 0.0,
-                            primary: Color(0xff87CEEB)
+                            primary: AppConstants().appTheme
                           ),
 
                             onPressed: (){
@@ -315,25 +316,25 @@ class _LoginPageState extends State<LoginPage> {
                     // Text(
                     //     "List of Biometrics Support: ${_availableBuimetricType.toString()}"),
                     // Text("Authorized : $_authorizedOrNot"),
-                    ConstrainedBox(
-                      constraints: BoxConstraints.loose(Size(MediaQuery.of(context).size.width * 0.8,
-                          150)),
-                      child: ElevatedButton(
-                        child: Text("Authorize Now"),
-                        // color: Colors.green,
-                        // onPressed:()=>_authenticate(),
-                        onPressed: _authenticateMe,
-                      ),
-                    ),
-                    Center(
-                      child: Text(!canAuthenticate
-                          ? "Biometrics Not available"
-                          : didAuthenticate
-                          ? "Authenticated"
-                          : "Please Unlock with biometrics"),
-                    ),
+                    // ConstrainedBox(
+                    //   constraints: BoxConstraints.loose(Size(MediaQuery.of(context).size.width * 0.8,
+                    //       150)),
+                    //   child: ElevatedButton(
+                    //     child: Text("Authorize Now"),
+                    //     // color: Colors.green,
+                    //     // onPressed:()=>_authenticate(),
+                    //     onPressed: _authenticateMe,
+                    //   ),
+                    // ),
+                    // Center(
+                    //   child: Text(!canAuthenticate
+                    //       ? "Biometrics Not available"
+                    //       : didAuthenticate
+                    //       ? "Authenticated"
+                    //       : "Please Unlock with biometrics"),
+                    // ),
 
-                    buildAvailability(context),
+                    // buildAvailability(context),
                     SizedBox(height: 24),
                     buildAuthenticate(context),
                   ],
