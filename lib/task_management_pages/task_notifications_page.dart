@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:work_flow_app/common_pages/app_constants.dart';
 import 'package:work_flow_app/task_management_pages/task_notifications_details.dart';
 
-class TasknotificationsPage extends StatefulWidget {
-  const TasknotificationsPage({Key? key}) : super(key: key);
+class TaskNotificationsPage extends StatefulWidget {
+  const TaskNotificationsPage({Key? key}) : super(key: key);
 
   @override
-  State<TasknotificationsPage> createState() => _TasknotificationsPageState();
+  State<TaskNotificationsPage> createState() => _TaskNotificationsPageState();
 }
 
-class _TasknotificationsPageState extends State<TasknotificationsPage> {
+class _TaskNotificationsPageState extends State<TaskNotificationsPage> {
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -74,7 +75,8 @@ class _TasknotificationsPageState extends State<TasknotificationsPage> {
                 decoration: BoxDecoration(
                   color: AppConstants().appTheme.withOpacity(0.6),
 
-                border: Border.all(
+                border:
+                Border.all(
                 color: Colors.white38
 
               ),
@@ -87,7 +89,7 @@ class _TasknotificationsPageState extends State<TasknotificationsPage> {
                     Row(
                       children: [
 
-                          SizedBox(width: 20,),
+                        SizedBox(width: 20,),
                         Icon(Icons.notification_add_outlined,
                         size: 25,
                             color: Colors.black,),

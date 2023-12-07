@@ -16,68 +16,89 @@ class _TaskNotificationsDetailsState extends State<TaskNotificationsDetails> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 0.0,
-
+leading: IconButton(
+  onPressed: (){
+    Navigator.pop(context);
+  },
+  icon: Icon(Icons.arrow_back_ios_new),
+),
           centerTitle: true,
-          title: Text("Notification Details"),
+          // title: Text("Notification Details"),
         backgroundColor: AppConstants().appTheme,),
 
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 90,),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Row(
-              children: [
-                Expanded(child: Text("Task Name :",
-                    style: TextStyle(
+            SizedBox(height: 30,),
+         Column(
+           mainAxisAlignment: MainAxisAlignment.end,
+           children: [
+             Container(
+               padding: const EdgeInsets.
+               symmetric(horizontal: 8.0,
+                   vertical: 4),
+               child: Row(
+                 crossAxisAlignment: CrossAxisAlignment.center,
+                 children: [
+                   Expanded(child: Text("Task Name :",
+                       style: TextStyle(
 
-                        fontSize: 20
-                    ))),
-                Expanded(child: Text(".........")),
+                           fontSize: 20
+                       ))),
+                   Expanded(child: Text(".........")),
 
-              ],
-            ),
-          ),
+                 ],
+               ),
+             ),
 
-            SizedBox(height: 10,),
+             SizedBox(height: 10,),
+             Container(
+               padding: const EdgeInsets
+                   .symmetric(horizontal: 8.0,
+                   vertical: 4),
+
+               child: Row(
+                 children: [
+                   Expanded(child: Text("Assigne Name :",
+                     style: TextStyle(
+
+                         fontSize: 20
+                     ),)),
+                   Expanded(child: Text(".........")),
+
+                 ],
+               ),
+             ),
+
+             SizedBox(height: 10,),
+             Container(
+               padding: const EdgeInsets
+                   .symmetric(horizontal: 8.0,
+                   vertical: 4),
+
+               child: Row(
+                 children: [
+                   Expanded(
+                       flex:2,
+                       child: Text("Date Of Assignment :",
+                           style: TextStyle(
+
+                               fontSize: 20
+                           ))),
+                   Expanded(child: Text(".....")),
+
+                 ],
+               ),
+             ),
+           ],
+         ),
+// SizedBox(height: 30,),
+            Spacer(),
+            Spacer(),
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-
-              child: Row(
-                children: [
-                  Expanded(child: Text("Assigne Name :",
-                  style: TextStyle(
-
-                    fontSize: 20
-                  ),)),
-                  Expanded(child: Text(".........")),
-
-                ],
-              ),
-            ),
-
-SizedBox(height: 10,),
-            Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-               
-              child: Row(
-                children: [
-                  Expanded(
-                    flex:2,
-                      child: Text("Date Of Assignment :",
-                      style: TextStyle(
-
-                          fontSize: 20
-                      ))),
-                  Expanded(child: Text(".....")),
-
-                ],
-              ),
-            ),
-SizedBox(height: 30,),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 5),
+              // height: 150,
+              margin: EdgeInsets.symmetric(horizontal: 5,
+             ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -126,7 +147,7 @@ SizedBox(height: 30,),
                 ],
               )
             ),
-            Spacer(),
+            SizedBox(height: 30,),
 
 
 
@@ -145,3 +166,4 @@ SizedBox(height: 30,),
     );
   }
 }
+

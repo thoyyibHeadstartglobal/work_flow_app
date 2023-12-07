@@ -1,13 +1,15 @@
+
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:work_flow_app/common_pages/app_constants.dart';
 import 'package:work_flow_app/common_pages/login_page.dart';
 import 'dart:io';
 
 import 'package:work_flow_app/task_management_pages/create_tasks.dart';
-import 'package:work_flow_app/task_management_pages/task_notifications.dart';
 import 'package:work_flow_app/task_management_pages/task_notifications_page.dart';
 
 class AppHome extends StatefulWidget {
@@ -20,6 +22,28 @@ class AppHome extends StatefulWidget {
 
 class _AppHomeState extends State<AppHome> {
 
+   int ? _currentIndex = 0;
+
+
+   static   List<BottomNavigationBarItem> _pages = <BottomNavigationBarItem>[
+     BottomNavigationBarItem(
+         label: "Home",
+         icon: Icon(Icons.home)
+     ),
+
+
+     BottomNavigationBarItem(
+         label: "Profile",
+         icon: Icon(Icons.person_add_alt)
+     ),
+
+     BottomNavigationBarItem(
+       // activeIcon: Icon(Icons.more_horiz),
+         label: "",
+         icon: Icon(Icons.more_horiz,
+         size: 40,)
+     ),
+   ];
 
 
 
@@ -82,7 +106,7 @@ actions: [IconButton(onPressed: (){
   Navigator.push(context,
   MaterialPageRoute(builder: (context)=>
 
-      TasknotificationsPage()));
+      TaskNotificationsPage()));
 }, icon: Icon(Icons.notifications_active_outlined))],
 
 
@@ -382,7 +406,72 @@ actions: [IconButton(onPressed: (){
 
 
               ],
-        )
+        ),
+          // bottomNavigationBar:
+          //
+          // Theme(
+          //
+          //   data: Theme.of(context).copyWith(
+          //     bottomAppBarColor: Colors.blue,
+          //     selectedRowColor:  Colors.black38,
+          //     hoverColor: Colors.red,
+          //       canvasColor:  AppConstants().appTheme,
+          //       primaryColor: Colors.white,
+          //       textTheme: Theme.of(context)
+          //           .textTheme.copyWith(
+          //           caption: TextStyle(color: Colors.grey)
+          //       )
+          //   ),
+          //   child: BottomNavigationBar(
+          //     type: BottomNavigationBarType.shifting,
+          //     // selectedIconTheme: IconThemeData(
+          //     //   color: Colors.white
+          //     // ),
+          //
+          //     backgroundColor: AppConstants().appTheme,
+          //
+          //     elevation: 0.0,
+          //     fixedColor:Colors.white,
+          //     onTap: (int ? value){
+          //       setState((){
+          //         _currentIndex= value;
+          //       });
+          //       if(_currentIndex== 0){
+          //         AppHome();
+          //       }
+          //
+          //       if(_currentIndex== 1){
+          //         AppHome();
+          //       }
+          //       if(_currentIndex== 2){
+          //         TaskNotificationsPage();
+          //       }
+          //     },
+          //     // selectedItemColor: Colors.blue,
+          //     unselectedItemColor: Colors.black,
+          //     currentIndex: _currentIndex!,
+          //     items: [
+          //
+          //       BottomNavigationBarItem(
+          //           label: "Home",
+          //           icon: Icon(Icons.home)
+          //       ),
+          //
+          //
+          //       BottomNavigationBarItem(
+          //           label: "Profile",
+          //           icon: Icon(Icons.person_add_alt)
+          //       ),
+          //
+          //       BottomNavigationBarItem(
+          //         // activeIcon: Icon(Icons.more_horiz),
+          //           label: "More",
+          //           icon: Icon(Icons.more_horiz,
+          //             size: 40,)
+          //       ),
+          //     ],
+          //   ),
+          // ),
           ),
         ),
 
