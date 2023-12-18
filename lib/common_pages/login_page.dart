@@ -153,7 +153,8 @@ class _LoginPageState extends State<LoginPage> {
         ),
       );
 
-  Widget buildAuthenticate(BuildContext context) => buildButton(
+  Widget buildAuthenticate(BuildContext context) =>
+      buildButton(
         text: 'Biometric login',
         icon: Icons.lock_open,
         onClicked: () async {
@@ -161,7 +162,7 @@ class _LoginPageState extends State<LoginPage> {
 
           if (isAuthenticated) {
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => AppHome()),
+              MaterialPageRoute(builder: (context) => ViewAppHome()),
             );
           }
         },
@@ -172,6 +173,7 @@ class _LoginPageState extends State<LoginPage> {
     IconData? icon,
     VoidCallback? onClicked,
   }) =>
+
       ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
           minimumSize: Size.fromHeight(50),
@@ -262,13 +264,18 @@ class _LoginPageState extends State<LoginPage> {
                                 style: ElevatedButton.styleFrom(
                                     elevation: 0.0,
                                     primary: AppConstants().appTheme),
-                                onPressed: () {
+                                onPressed: ()
+                                {
+
+                                  // ignore_for_file: avoid_print
+                                  print("Login Page");
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => ViewAppHome()));
                                 },
-                                child: Text("Login")),
+                                child: Text("Login")
+                            ),
                           ],
                         ),
                         // Expanded(child: ElevatedButton(
@@ -335,8 +342,8 @@ class _LoginPageState extends State<LoginPage> {
                             )
                           ],
                         ),
-                        SizedBox(height: 24),
-                        buildAuthenticate(context),
+                        // SizedBox(height: 24),
+                        //
                       ],
                     ),
                   ),
@@ -372,7 +379,7 @@ class _LoginPageState extends State<LoginPage> {
       if (didAuthenticate) {
         Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => AppHome()),
+            MaterialPageRoute(builder: (context) => ViewAppHome()),
             (route) => false);
       }
     } on PlatformException catch (e) {

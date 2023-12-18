@@ -20,6 +20,53 @@ class _UserProfilePageState extends State<UserProfilePage> {
         backgroundColor: AppConstants().appTheme,
         title: Text("Profile"),
       ),
+      body:
+
+      ListView(
+        padding: EdgeInsets.symmetric(vertical: 20,horizontal: 20),
+        children: [
+
+         Row(
+           children: [
+             Expanded(child: Text("Username")),
+             SizedBox(width: 20,),
+             Expanded(
+                 flex: 3,
+                 child: Text("..USER.."))
+           ],
+         ),
+SizedBox(height: 20,),
+          Row(
+            children: [
+              Expanded(child: Text("email")),
+              SizedBox(width: 20,),
+              Expanded(
+                  flex: 3,
+                  child: Text("..EMAIL.."))
+            ],
+          ),
+          SizedBox(height: 20,),
+          Row(
+            children: [
+              Expanded(child: Text("USER ID")),
+              SizedBox(width: 20,),
+              Expanded(
+                  flex: 3,
+                  child: Text("..USER ID.."))
+            ],
+          ),
+          SizedBox(height: 20,),
+          Row(
+            children: [
+              Expanded(child: Text("ADDRESS")),
+              SizedBox(width: 20,),
+              Expanded(
+                  flex: 3,
+                  child: Text("..ADDRESS.."))
+            ],
+          )
+        ],
+      ),
     );
   }
 }

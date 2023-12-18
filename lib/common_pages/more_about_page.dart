@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:work_flow_app/common_pages/app_constants.dart';
 
@@ -17,7 +16,7 @@ class _MoreDetailsUserState extends State<MoreDetailsUser> {
         elevation: 0.0,
         centerTitle: true,
         backgroundColor: AppConstants().appTheme,
-        title: Text("More About"),
+        title: Text("Settings"),
       ),
     );
   }

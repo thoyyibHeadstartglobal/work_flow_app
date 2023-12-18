@@ -1,12 +1,52 @@
+import 'dart:ui';
+
+import 'package:face_camera/face_camera.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'common_pages/login_page.dart';
+import 'common_pages/video_player.dart';
 
+void debugPrintSynchronouslyWithText(
 
-void main() {
+    String message, String version,
+    {int ? wrapWidth}) {
+  message =
+  "[${DateTime.now()} - $version]: $message";
+  debugPrintSynchronously(message, wrapWidth: wrapWidth);
+
+}
+
+void main() async{
+// var message="";
+  // if (kReleaseMode)
+  // {
+  var version =
+      "1";
+  debugPrint = (String  ? message, {int  ? wrapWidth}) =>
+      debugPrintSynchronouslyWithText(message!, version, wrapWidth: wrapWidth);
+
+  // {
+    //   print(".*");
+    //
+    // };
+  // }
+
+  DartPluginRegistrant.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized(); //Add this
+  // try {
+  //   cameras = await availableCameras();
+  //
+  // } on CameraException catch (e) {
+  //   logError(e.code, e.description);
+  // }
+  await FaceCamera.intialize();
   runApp(const MyApp());
 }
 
+initFaceCamera() async {
+
+}
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -20,7 +60,9 @@ class MyApp extends StatelessWidget {
 
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(),
+      home:
+      // VideoPlayerScreen()
+      LoginPage(),
     );
   }
 }

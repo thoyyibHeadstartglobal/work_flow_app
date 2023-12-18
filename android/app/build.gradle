@@ -47,10 +47,13 @@ android {
         applicationId "com.example.work_flow_app"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration.
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+
+        multiDexEnabled true
+
     }
 
     buildTypes {
@@ -67,5 +70,15 @@ flutter {
 }
 
 dependencies {
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation("androidx.multidex:multidex:2.0.1")
+
+    // add exo player dependency here
+//    implementation 'com.google.android.exoplayer:exoplayer:2.7.3'
+//    implementation 'org.jsoup:jsoup:1.10.3'
+//    // code generator for view
+//    implementation "com.jakewharton:butterknife:8.8.1"
+//    annotationProcessor "com.jakewharton:butterknife-compiler:8.8.1"
+
 }

@@ -172,20 +172,22 @@ class _ViewAppHomeState extends State<ViewAppHome> {
 
                 BottomNavigationBarItem(
                     label: "Home",
-                    icon: Icon(Icons.home)
+                    icon: Icon(Icons.home,
+                    size: 35,)
                 ),
 
 
                 BottomNavigationBarItem(
                     label: "Profile",
-                    icon: Icon(Icons.person_add_alt)
+                    icon: Icon(Icons.person_add_alt,
+                    size: 35,)
                 ),
 
                 BottomNavigationBarItem(
                   // activeIcon: Icon(Icons.more_horiz),
-                    label: "More",
-                    icon: Icon(Icons.more_horiz,
-                      size: 40,)
+                    label: "Settings",
+                    icon: Icon(Icons.settings,
+                      size: 35,)
                 ),
               ],
             ),

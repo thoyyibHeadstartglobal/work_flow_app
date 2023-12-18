@@ -1,5 +1,3 @@
-
-
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,111 +13,176 @@ import 'package:work_flow_app/task_management_pages/task_notifications_page.dart
 class AppHome extends StatefulWidget {
   const AppHome({Key? key}) : super(key: key);
 
-
   @override
   State<AppHome> createState() => _AppHomeState();
 }
 
 class _AppHomeState extends State<AppHome> {
+  int? _currentIndex = 0;
 
-   int ? _currentIndex = 0;
+  static List<BottomNavigationBarItem> _pages = <BottomNavigationBarItem>[
+    BottomNavigationBarItem(label: "Home", icon: Icon(Icons.home)),
+    BottomNavigationBarItem(label: "Profile", icon: Icon(Icons.person_add_alt)),
+    BottomNavigationBarItem(
+        // activeIcon: Icon(Icons.more_horiz),
+        label: "",
+        icon: Icon(
+          Icons.more_horiz,
+          size: 40,
+        )),
+  ];
 
-
-   static   List<BottomNavigationBarItem> _pages = <BottomNavigationBarItem>[
-     BottomNavigationBarItem(
-         label: "Home",
-         icon: Icon(Icons.home)
-     ),
-
-
-     BottomNavigationBarItem(
-         label: "Profile",
-         icon: Icon(Icons.person_add_alt)
-     ),
-
-     BottomNavigationBarItem(
-       // activeIcon: Icon(Icons.more_horiz),
-         label: "",
-         icon: Icon(Icons.more_horiz,
-         size: 40,)
-     ),
-   ];
-
-
-
-  List<dynamic> statusList = [{"status":'Pending',
-  'color':Colors.white54,'count':2,
-  'icon':Icon(Icons.pending_actions,
-  color: Colors.white,
-  size: 35,)},
-    {"status":'Processing','count':1,
-      'icon':Icon(Icons.access_time_outlined,
-          color: Colors.white,
-        size: 35,),
-
-    'color':Colors.white12},
-    {"status":'Approved',
-      'count':4,
-      'icon':Icon(Icons.check,
-          color: Colors.white,
-        size: 35,),
-      'color':Colors.green},
-    {"status":'Rejected',
-      'count':1,
-      'icon':Icon(Icons.close,
+  List<dynamic> statusList = [
+    {
+      "status": 'Pending',
+      'color': Colors.white54,
+      'count': 2,
+      'icon': Icon(
+        Icons.pending_actions,
+        color: Colors.white,
         size: 35,
-        color: Colors.white),
-      'color':Colors.red},
-    {"status":'Closed',
-      'count':0,
-      'icon':Icon(Icons.closed_caption_disabled_sharp, size: 35,),
-      'color':Colors.orangeAccent}];
+      )
+    },
+    {
+      "status": 'Processing',
+      'count': 1,
+      'icon': Icon(
+        Icons.access_time_outlined,
+        color: Colors.white,
+        size: 35,
+      ),
+      'color': Colors.white12
+    },
+    {
+      "status": 'Approved',
+      'count': 4,
+      'icon': Icon(
+        Icons.check,
+        color: Colors.white,
+        size: 35,
+      ),
+      'color': Colors.green
+    },
+    {
+      "status": 'Rejected',
+      'count': 1,
+      'icon': Icon(Icons.close, size: 35, color: Colors.white),
+      'color': Colors.red
+    },
+    {
+      "status": 'Closed',
+      'count': 0,
+      'icon': Icon(
+        Icons.closed_caption_disabled_sharp,
+        size: 35,
+      ),
+      'color': Colors.orangeAccent
+    }
+  ];
 
   @override
   void initState() {
     initializeData();
     super.initState();
   }
-  initializeData(){
+
+  initializeData() {
     print("initialization data Page");
   }
 
   @override
   Widget build(BuildContext context) {
-
     return WillPopScope(
-      onWillPop: ()async
-      {
+      onWillPop: () async {
         return false;
       },
       child: SafeArea(
-
         child: Scaffold(
-
           appBar: AppBar(
+            leading: IconButton(
+              icon: Icon(Icons.login_outlined),
+              onPressed: () {
+                Widget yesButton = TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.green
+                  ),
+                  child: Text("Yes",
+                  style: TextStyle(
+                    color: Colors.white
+                  ),),
+                  onPressed: () {
+                    Navigator.pushAndRemoveUntil(context, 
+                        MaterialPageRoute(builder: (context)=> LoginPage()), (route) => false);
+                  },
+                );
+
+                Widget noButton = TextButton(
+                  style: TextButton.styleFrom(
+                      backgroundColor: Colors.red
+                  ),
+                  child: Text("No"
+                  ,
+                      style: TextStyle(
+                          color: Colors.white
+                      )),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                );
+
+                Widget alert = AlertDialog(
+                  elevation: 7.0,
+                  insetPadding: EdgeInsets.only(
+                      bottom: 520,
+                  right: 0),
+                  title: Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      alignment: Alignment.topCenter,
+                      child: const Text("Are you sure to logout ?"),
+                    ),
+                  ),
+                  actions: [yesButton, noButton],
+                );
+
+                showDialog(
+                    barrierColor: Colors.transparent,
+                    useSafeArea: true,
+                    context: context,
+                    builder: (context)
+
+                    =>
+                        Align(
+
+                          alignment: Alignment.topCenter,
+                            child: alert)
+                );
+              },
+            ),
             automaticallyImplyLeading: false,
             elevation: 0,
             backgroundColor: Color(0xff87CEEB),
             centerTitle: true,
-actions: [IconButton(onPressed: (){
-
-  Navigator.push(context,
-  MaterialPageRoute(builder: (context)=>
-
-      TaskNotificationsPage()));
-}, icon: Icon(Icons.notifications_active_outlined))],
-
-
-
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TaskNotificationsPage()));
+                  },
+                  icon: Icon(Icons.notifications_active_outlined))
+            ],
           ),
           body: ListView(
             children: [
-              SizedBox(height: 20,),
+              SizedBox(
+                height: 20,
+              ),
               Container(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
-
                     // Expanded(
                     //   child: InkWell(
                     //
@@ -155,7 +218,6 @@ actions: [IconButton(onPressed: (){
                     Expanded(
                       child: DottedBorder(
                         strokeWidth: 1.5,
-
                         child: InkWell(
 
                             //
@@ -173,98 +235,89 @@ actions: [IconButton(onPressed: (){
                             //         vertical: 0),
                             //     primary: Colors.white
                             // ),
-                            onTap: (){
+                            onTap: () {
                               // Navigator.push(
                               //     context, MaterialPageRoute(builder: (context)=>
                               //     LoginPage()));
-                              Navigator.push(context, MaterialPageRoute(
-                                  builder: (context)=> CreateTaskPage())
-                              )
-                              .whenComplete(() =>
-
-                              initializeData()
-                              );
+                              Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              CreateTaskPage()))
+                                  .whenComplete(() => initializeData());
 
                               print("button Pressed");
-                            }, child:
-                        Container(
-                          height: MediaQuery.of(context).size.height/8.5,
-                          child:
-                          Center(
-                            child: Text("OPEN / CREATE TASK",
-                              style: TextStyle(
-                                  color: Colors.black
+                            },
+                            child: Container(
+                              height: MediaQuery.of(context).size.height / 8.5,
+                              child: Center(
+                                child: Text(
+                                  "OPEN / CREATE TASK",
+                                  style: TextStyle(color: Colors.black),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
-                              textAlign: TextAlign.center,),
-                          ),
-                        )),
-
+                            )),
                       ),
                     ),
-
                   ],
                 ),
               ),
 
+              SizedBox(
+                height: 30,
+              ),
 
-              SizedBox(height: 30,),
+              Container(
+                height: 350,
+                child: GridView.builder(
+                    // padding:
+                    // EdgeInsets.symmetric(horizontal: 10, vertical: 22),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      // maxCrossAxisExtent: 200,
+                      mainAxisExtent: 90,
+                      // childAspectRatio: 3 / 2,
+                      crossAxisSpacing: 0,
 
-            Container(
-              height: 350,
+                      mainAxisSpacing: 0,
+                    ),
+                    // const
+                    // SliverGridDelegateWithMaxCrossAxisExtent(
+                    //     maxCrossAxisExtent: 200,
+                    //
+                    //     childAspectRatio: 3 / 2,
+                    //     crossAxisSpacing: 20,
+                    //     mainAxisSpacing: 20,
+                    //
+                    // ),
 
-              child: GridView.builder(
-                // padding:
-                // EdgeInsets.symmetric(horizontal: 10, vertical: 22),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    // maxCrossAxisExtent: 200,
-                    mainAxisExtent:
-                    90,
-                    // childAspectRatio: 3 / 2,
-                    crossAxisSpacing:0,
-
-                    mainAxisSpacing: 0,
-                  ),
-                  // const
-                  // SliverGridDelegateWithMaxCrossAxisExtent(
-                  //     maxCrossAxisExtent: 200,
-                  //
-                  //     childAspectRatio: 3 / 2,
-                  //     crossAxisSpacing: 20,
-                  //     mainAxisSpacing: 20,
-                  //
-                  // ),
-
-                  itemCount:statusList.length,
-                  // cacheExtent: 200,
-                  itemBuilder: (BuildContext ctx, index) {
-                    // setState((){
-                    // listIndex = index;
-                    // });
-                    return
-                      TextButton(
-
+                    itemCount: statusList.length,
+                    // cacheExtent: 200,
+                    itemBuilder: (BuildContext ctx, index) {
+                      // setState((){
+                      // listIndex = index;
+                      // });
+                      return TextButton(
                         style: TextButton.styleFrom(
-                          primary: statusList[index]['color']
+                            primary: statusList[index]['color']
 
-                          // padding: EdgeInsets.symmetric(horizontal: 5),
-                          // shadowColor: Color(0xff87CEEB),
-                        ),
-                        onPressed: () async {
-
-                        },
+                            // padding: EdgeInsets.symmetric(horizontal: 5),
+                            // shadowColor: Color(0xff87CEEB),
+                            ),
+                        onPressed: () async {},
                         child: Container(
                           // margin: EdgeInsets.only(left: 10,right: 0),
                           width:
-                          // ?
-                          MediaQuery.of(context).size.width * 0.9
+                              // ?
+                              MediaQuery.of(context).size.width * 0.9
                           // : MediaQuery.of(context).size.width
                           ,
 
                           decoration: BoxDecoration(
 
-                            // gradient: LinearGradient(colors: [Colors.yellow,
-                            //   Colors.blue, Colors.red]),
+                              // gradient: LinearGradient(colors: [Colors.yellow,
+                              //   Colors.blue, Colors.red]),
 
                               boxShadow: [
                                 BoxShadow(
@@ -274,32 +327,31 @@ actions: [IconButton(onPressed: (){
                                     blurStyle: BlurStyle.normal)
                               ],
                               borderRadius: BorderRadius.circular(15.0),
-                              color:   statusList[index]['color'],
-                              border: Border.all(
-                                  width: 0.1, color: Colors.black)),
+                              color: statusList[index]['color'],
+                              border:
+                                  Border.all(width: 0.1, color: Colors.black)),
                           // margin: EdgeInsets.symmetric(horizontal: 10),
 
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment:
-                            CrossAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               // SizedBox(
                               //   height: 5,
                               // ),
                               Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Container(
                                     // color:Colors.red,
-                                    child: Text("${statusList[index]['count'].toString()}",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 15
-                                    ),),
+                                    child: Text(
+                                      "${statusList[index]['count'].toString()}",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w900,
+                                          fontSize: 15),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -308,8 +360,7 @@ actions: [IconButton(onPressed: (){
                               // ),
 
                               Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Expanded(
                                       flex: 2,
@@ -323,30 +374,28 @@ actions: [IconButton(onPressed: (){
                                         ,
                                         overflow: TextOverflow.visible,
                                         textAlign: TextAlign.center,
-                                        style:
-                                        TextStyle(
+                                        style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white,
                                             fontSize:
-                                            // homeList .length ==4 ?
-                                            // 15 :
-                                            15),
-
+                                                // homeList .length ==4 ?
+                                                // 15 :
+                                                15),
                                       )),
                                   Expanded(
-                                      child:IconButton(
+                                      child: IconButton(
                                     iconSize: 5,
-                                  icon: statusList[index]['icon']
-                                          ,
-                                    onPressed: () {  },))
+                                    icon: statusList[index]['icon'],
+                                    onPressed: () {},
+                                  ))
                                 ],
                               ),
                             ],
                           ),
                         ),
                       );
-                  }),
-            ),
+                    }),
+              ),
               // Expanded(
               //   child: ElevatedButton(
               //       onPressed:() async {
@@ -401,12 +450,8 @@ actions: [IconButton(onPressed: (){
               //       child: Text("Authenticate with Fingerprint/Face Scan")
               //   ),
               // ),
-
-
-
-
-              ],
-        ),
+            ],
+          ),
           // bottomNavigationBar:
           //
           // Theme(
@@ -472,30 +517,33 @@ actions: [IconButton(onPressed: (){
           //     ],
           //   ),
           // ),
-          ),
         ),
-
+      ),
     );
   }
 
-  Widget SelectCard(){
+  Widget SelectCard() {
     return Column(
       children: [
         InkWell(
-          child: Container(child:
-            Text("Pending"),),
+          child: Container(
+            child: Text("Pending"),
+          ),
         ),
         InkWell(
-          child: Container(child:
-          Text("Processing"),),
+          child: Container(
+            child: Text("Processing"),
+          ),
         ),
         InkWell(
-          child: Container(child:
-          Text("Rejected"),),
+          child: Container(
+            child: Text("Rejected"),
+          ),
         ),
         InkWell(
-          child: Container(child:
-          Text("Closed"),),
+          child: Container(
+            child: Text("Closed"),
+          ),
         ),
       ],
     );

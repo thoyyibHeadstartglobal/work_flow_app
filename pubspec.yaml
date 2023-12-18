@@ -38,6 +38,9 @@ dependencies:
   dotted_border: ^2.1.0
   dropdown_button2: ^2.1.4
   intl: ^0.18.1
+  better_player: ^0.0.83
+  face_camera: ^0.0.5
+  camera: ^0.9.8+1
 
 dev_dependencies:
   flutter_test:

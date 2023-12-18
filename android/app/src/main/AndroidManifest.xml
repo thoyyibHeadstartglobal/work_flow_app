@@ -5,16 +5,35 @@
 
     <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+<!--    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />-->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!--    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />-->
+<!--    <uses-permission android:name="android.permission.BLUETOOTH" />-->
+<!--    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />-->
+<!--    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
+<!--    <uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
+<!--    <uses-permission android:name="android.permission.WAKE_LOCK" />-->
 <!--    <uses-permission android:name="android.permission.USE_BIOMETRIC"/>-->
 
 <!--    android:name=".MainActivity"-->
 
 
+
+    <!--        android:name="${applicationName}"-->
+
     <application
         android:label="work_flow_app"
-        android:name="${applicationName}"
+        android:name="androidx.multidex.MultiDexApplication"
+        android:requestLegacyExternalStorage="true"
+        android:icon="@mipmap/ic_launcher"
 
-        android:icon="@mipmap/ic_launcher">
+        android:usesCleartextTraffic="true">
 
         <activity
             android:name="io.flutter.embedding.android.FlutterFragmentActivity"
